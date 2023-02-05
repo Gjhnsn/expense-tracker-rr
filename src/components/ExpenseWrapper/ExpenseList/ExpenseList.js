@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   ActionIconBar,
   AmountP,
@@ -17,7 +18,6 @@ import {
 import DeleteModal from "../../DeleteModal/DeleteModal";
 // import ReactTooltip from 'react-tooltip';
 
-
 const ExpenseList = ({
   setIsEdit,
   setOpenExpenseForm,
@@ -30,11 +30,13 @@ const ExpenseList = ({
   currentExpense,
   setDeleteModal,
   deleteModal,
+  setExpenseListUpdated,
+  expenseListUpdated
 }) => {
 
+  const expenseData = useSelector((state) => state.expense.allExpenses);
 
-  // replace with spinner
-  // if (loading) return <p>Loading...</p>;
+ console.log('expense data in list', expenseData)
 
   const date = new Date();
   const currMonth = date.getMonth() + 1;
@@ -56,41 +58,90 @@ const ExpenseList = ({
     setOpenExpenseForm(false);
   };
 
+  const expenses = [...expenseData]
+    .sort((a, b) => (a.dueDate === "n/a" ? -1 : a.dueDate - b.dueDate))
+    .map((expense) => {
+      return (
+        <li order={expense.amount} key={expense.name}>
+          <GridLayout
+            currentExpense={currentExpense}
+            expense={expense}
+            deleteModal={deleteModal}
+          >
+            <NameWrapper>
+              <Name>{expense.name}</Name>
+              {expense.recurring === true && (
+                <>
+                  <RecurIcon data-tip="Expense Is Recurring" />
+                  {/* <ReactTooltip
+                    backgroundColor="rgba(52, 52, 52, .8)"
+                    clickable={false}
+                    disable={window.innerWidth < "450" && true}
+                  /> */}
+                </>
+              )}
+            </NameWrapper>
+            <p>
+              {expense.dueDate.length < 1 || expense.dueDate.length > 2 ? (
+                <NoDateIcon />
+              ) : (
+                currMonth + "/" + expense.dueDate
+              )}
+            </p>
+            <AmountP>${Number(expense.amount).toFixed(2)}</AmountP>
+            <ActionIconBar>
+              <EditIcon onClick={() => onEdit(expense)} />
+              <DeleteIcon onClick={() => handleOpenDeleteModal(expense)} />
+            </ActionIconBar>
+          </GridLayout>
+          <DeleteModal
+            id={expense.id}
+            setOpenExpenseForm={setOpenExpenseForm}
+            currentExpense={currentExpense}
+            expense={expense}
+            deleteModal={deleteModal}
+            setDeleteModal={setDeleteModal}
+            setExpenseListUpdated={setExpenseListUpdated}
+          />
+        </li>
+      );
+    });
+
   // const expenses = [...data?.getExpenses]
   //   .sort((a, b) => (a.dueDate === "n/a" ? -1 : a.dueDate - b.dueDate))
   //   .map((expense) => {
   //     return (
-  //       <li order={expense.amount} key={expense.name}>
-  //         <GridLayout
-  //           currentExpense={currentExpense}
-  //           expense={expense}
-  //           deleteModal={deleteModal}
-  //         >
-  //           <NameWrapper>
-  //             <Name>{expense.name}</Name>
-  //             {expense.recurring === true && <><RecurIcon data-tip="Expense Is Recurring" /><ReactTooltip backgroundColor="rgba(52, 52, 52, .8)" clickable={false} disable={window.innerWidth < "450" && true}/></>}
-  //           </NameWrapper>
-  //           <p>
-  //             {expense.dueDate.length < 1 || expense.dueDate.length > 2 ? (
-  //               <NoDateIcon />
-  //             ) : (
-  //               currMonth + "/" + expense.dueDate
-  //             )}
-  //           </p>
-  //           <AmountP>${Number(expense.amount).toFixed(2)}</AmountP>
-  //           <ActionIconBar>
-  //             <EditIcon onClick={() => onEdit(expense)} />
-  //             <DeleteIcon onClick={() => handleOpenDeleteModal(expense)} />
-  //           </ActionIconBar>
-  //         </GridLayout>
-  //         <DeleteModal
-  //           setOpenExpenseForm={setOpenExpenseForm}
-  //           currentExpense={currentExpense}
-  //           expense={expense}
-  //           deleteModal={deleteModal}
-  //           setDeleteModal={setDeleteModal}
-  //         />
-  //       </li>
+  // <li order={expense.amount} key={expense.name}>
+  //   <GridLayout
+  //     currentExpense={currentExpense}
+  //     expense={expense}
+  //     deleteModal={deleteModal}
+  //   >
+  //     <NameWrapper>
+  //       <Name>{expense.name}</Name>
+  //       {expense.recurring === true && <><RecurIcon data-tip="Expense Is Recurring" /><ReactTooltip backgroundColor="rgba(52, 52, 52, .8)" clickable={false} disable={window.innerWidth < "450" && true}/></>}
+  //     </NameWrapper>
+  //     <p>
+  //       {expense.dueDate.length < 1 || expense.dueDate.length > 2 ? (
+  //         <NoDateIcon />
+  //       ) : (
+  //         currMonth + "/" + expense.dueDate
+  //       )}
+  //     </p>
+  //     <AmountP>${Number(expense.amount).toFixed(2)}</AmountP>
+  //     <ActionIconBar>
+  //       <EditIcon onClick={() => onEdit(expense)} />
+  //       <DeleteIcon onClick={() => handleOpenDeleteModal(expense)} />
+  //     </ActionIconBar>
+  //   </GridLayout>
+  //   <DeleteModal
+  //     setOpenExpenseForm={setOpenExpenseForm}
+  //     currentExpense={currentExpense}
+  //     expense={expense}
+  //     deleteModal={deleteModal}
+  //     setDeleteModal={setDeleteModal}
+  //   />
+  // </li>
   //     );
   //   });
 
@@ -120,7 +171,7 @@ const ExpenseList = ({
           {window.innerWidth > "450" ? <p>Action</p> : <p></p>}
         </Header>
         <ScrollContainer>
-          {/* <ul>{expenses}</ul> */}
+          <ul>{expenses}</ul>
         </ScrollContainer>
         <Footer>
           {/* {data?.getExpenses.length > 0 ? (

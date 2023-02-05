@@ -1,11 +1,14 @@
 import React from "react";
+import { useDispatch } from "react-redux";
 
 import { AnimatePresence } from "framer-motion";
 import { ConfirmBar, DeleteDialoge } from "./styles";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
+import { deleteExpense } from "../../redux/expenseSlice";
 
-const DeleteModal = ({ currentExpense, deleteModal, setDeleteModal }) => {
+const DeleteModal = ({ currentExpense, deleteModal, setDeleteModal, id, setExpenseListUpdated }) => {
 
+  const dispatch = useDispatch();
 
 
   // const [deleteExpense] = useMutation(DELETE_EXPENSE, {
@@ -62,10 +65,13 @@ const DeleteModal = ({ currentExpense, deleteModal, setDeleteModal }) => {
     }
   }
 
-  // const handleDelete = () => {
-  //   deleteExpense({ variables: { expenseId: currentExpense.id } });
-  //   setDeleteModal((prev) => !prev);
-  // };
+  const handleDelete = () => {
+    console.log('ID IN DEL', id)
+    dispatch(deleteExpense({id: id}))
+   // deleteExpense({ variables: { expenseId: currentExpense.id } });
+    setDeleteModal((prev) => !prev);
+    setExpenseListUpdated(true);
+  };
 
   return (
     <AnimatePresence>
@@ -94,7 +100,7 @@ const DeleteModal = ({ currentExpense, deleteModal, setDeleteModal }) => {
                 style={{ cursor: "pointer" }}
               />
               <AiOutlineCheckCircle
-              //  onClick={() => handleDelete()}
+                onClick={() => handleDelete()}
                 style={{ cursor: "pointer" }}
               />
             </div>

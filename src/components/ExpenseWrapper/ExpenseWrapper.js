@@ -10,9 +10,9 @@ const ExpenseWrapper = ({setDeleteModal, deleteModal}) => {
   const [expenseAmount, setExpenseAmount] = useState("");
   const [recurringPayment, setRecurringPayment] = useState(null);
   const [errorMessage, setErrorMessage] = useState(false);
-
   const [openExpenseForm, setOpenExpenseForm] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
+  const [expenseListUpdated, setExpenseListUpdated] = useState(false);
 
   return (
     <Wrapper>
@@ -29,6 +29,8 @@ const ExpenseWrapper = ({setDeleteModal, deleteModal}) => {
           currentExpense={currentExpense}
           setDeleteModal={setDeleteModal}
           deleteModal={deleteModal}
+          expenseListUpdated={expenseListUpdated}
+          setExpenseListUpdated={setExpenseListUpdated}
         />
         <ExpenseForm
         setDeleteModal={setDeleteModal}

@@ -1,7 +1,11 @@
 import React from "react";
 import { BsPlusSquare } from "react-icons/bs";
 import Select from "react-select";
+import { v4 as uuidv4 } from "uuid";
 
+import { addExpense } from "../../../redux/expenseSlice";
+import { editExpense } from "../../../redux/expenseSlice";
+import { useDispatch } from "react-redux";
 import {
   Container,
   FormContainer,
@@ -44,14 +48,14 @@ const ExpenseForm = ({
   //   refetchQueries: [{ query: GET_EXPENSES }, "getExpenses"],
   // });
 
+  const dispatch = useDispatch()
+
   const options = ["n/a"];
 
   const daysInMonth = () => {
     let now = new Date();
     return new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate();
   };
-
-  console.log(daysInMonth());
 
   for (let i = 1; i <= daysInMonth(); i++) {
     options.push(i);
@@ -105,28 +109,29 @@ const ExpenseForm = ({
     if (validateExpense()) {
       setErrorMessage(false);
       if (isEdit) {
-        // updateExpense({
-        //   variables: {
-        //     expenseId: currentExpense.id,
-        //     name: expenseName,
-        //     dueDate: dateChosen,
-        //     recurring: recurringPayment,
-        //     amount: expenseAmount,
-        //   },
-        // });
-      } else {
-        // addExpense({
-        //   variables: {
-        //     name: expenseName,
-        //     dueDate: dateChosen,
-        //     recurring: recurringPayment,
-        //     amount: expenseAmount,
-        //   },
-        // });
+        console.log('expense edit currEx', currentExpense)
+        dispatch(
+          editExpense({
+          expenseId: currentExpense.id,
+          name: expenseName,
+          dueDate: dateChosen,
+          recurring: recurringPayment,
+          amount: expenseAmount,
+        }))
+     } else {
+        dispatch(
+          addExpense({
+              name: expenseName,
+              dueDate: dateChosen,
+              recurring: recurringPayment,
+              amount: expenseAmount,
+              id: uuidv4(),
+          })
+        )
       }
       closeAndClearForm();
-    }
-  };
+    };
+  }
 
   const renderErrorMessage = () => {
     return (
