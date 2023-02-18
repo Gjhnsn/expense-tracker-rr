@@ -14,18 +14,17 @@ const expenseSlice = createSlice({
     editExpense(state, action) {
       state.allExpenses.map((expense) => {
         if (expense.id === action.payload.id) {
-          expense.name = action.payload.name;
-          expense.dueDate = action.payload.dueDate;
-          expense.recurring = action.payload.recurring;
-          expense.id = action.payload.id;
-        }
+          return (
+          expense.name = action.payload.name,
+          expense.dueDate = action.payload.dueDate,
+          expense.amount = action.payload.amount,
+          expense.recurring = action.payload.recurring,
+          expense.id = action.payload.id
+      )}
       });
     },
     deleteExpense(state, action) {
-      state.allExpenses.splice(
-        state.allExpenses.findIndex((item) => item.id === action.payload),
-        1
-      );
+      state.allExpenses = state.allExpenses.filter((expense) => expense.id !== action.payload);
     },
   },
 });

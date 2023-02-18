@@ -1,32 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-
 import { AnimatePresence } from "framer-motion";
 import { ConfirmBar, DeleteDialoge } from "./styles";
 import { AiOutlineCheckCircle, AiOutlineCloseCircle } from "react-icons/ai";
 import { deleteExpense } from "../../redux/expenseSlice";
 
-const DeleteModal = ({ currentExpense, deleteModal, setDeleteModal, id, setExpenseListUpdated }) => {
+const DeleteModal = ({ currentExpense, deleteModal, setDeleteModal }) => {
 
   const dispatch = useDispatch();
-
-
-  // const [deleteExpense] = useMutation(DELETE_EXPENSE, {
-  //   refetchQueries: [{ query: GET_EXPENSES }, "getExpenses"],
-  //   update(cache, result) {
-  //     const data = cache.readQuery({
-  //       query: GET_EXPENSES,
-  //     });
-  //     const cachedExpenses = [...data.getExpenses];
-  //     cachedExpenses.map(
-  //       (obj) => result.data.deleteExpense.id === obj.id || obj
-  //     );
-  //     cache.writeQuery({
-  //       query: GET_EXPENSES,
-  //       data: { getExpenses: cachedExpenses },
-  //     });
-  //   },
-  // });
 
   const layoutShift = window.innerWidth > "1024";
 
@@ -66,11 +47,8 @@ const DeleteModal = ({ currentExpense, deleteModal, setDeleteModal, id, setExpen
   }
 
   const handleDelete = () => {
-    console.log('ID IN DEL', id)
-    dispatch(deleteExpense({id: id}))
-   // deleteExpense({ variables: { expenseId: currentExpense.id } });
+    dispatch(deleteExpense(currentExpense.id))
     setDeleteModal((prev) => !prev);
-    setExpenseListUpdated(true);
   };
 
   return (

@@ -1,5 +1,3 @@
-//expense list styles
-
 import styled from "styled-components";
 import { SlRefresh } from "react-icons/sl";
 import { AiOutlineMinus, AiOutlineDelete, AiOutlineEdit } from "react-icons/ai";
@@ -30,7 +28,30 @@ export const Container = styled.div`
 export const ScrollContainer = styled.div`
   height: 100%;
   overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
+
+export const EmptyExpenseDiv = styled.div`
+  height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    p { 
+      font-size: 36px;
+      color: ${props => props.theme.mutedColor};
+
+      @media ${uiSize.tablet} {
+        padding: 25px 0;
+      }
+    }
+`
 
 export const Header = styled.div`
   width: 100%;
@@ -54,7 +75,7 @@ export const Header = styled.div`
 export const GridLayout = styled.div`
   color: ${(props) =>
     props.currentExpense === props.expense && props.deleteModal
-      ? "#ed5e68"
+      ? props.theme.warning
       : props.theme.headerText};
   width: 100%;
   margin: 0;
@@ -151,7 +172,7 @@ export const DeleteIcon = styled(AiOutlineDelete)`
   }
 
   &:hover {
-    color: #ed5e68;
+    color: ${props => props.theme.warning};
     transition: color 0.2s ease;
   }
 `;
@@ -172,22 +193,6 @@ export const Footer = styled.div`
   margin-top: auto;
   padding: 25px 10px 0 0;
   border-top: 1px solid ${(props) => props.theme.body};
-`;
-
-export const DeleteDialoge = styled(motion.div)`
-  position: absolute;
-  padding: 10px;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  border-radius: 10px;
-  background-color: #ed5e68;
-  color: ${(props) => props.theme.headerText};
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 2;
 `;
 
 export const ConfirmBar = styled(motion.div)`

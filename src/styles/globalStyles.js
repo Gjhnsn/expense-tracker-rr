@@ -12,6 +12,10 @@ export const GlobalStyles = createGlobalStyle`
         font-size: 36px;
         font-family: 'Sora', sans-serif;
         font-weight: 300;
+
+        @media (max-width: 280px) {
+        font-size: 28px;
+    }
     }
 
     h3 {
@@ -48,6 +52,7 @@ export const GlobalStyles = createGlobalStyle`
         text-decoration: none;
         color: ${(props) => props.theme.headerText};
     }
+
 `;
 
 export const theme = {
@@ -55,4 +60,5 @@ export const theme = {
   headerText: "#D9D9D9",
   secondaryColor: "#434343",
   mutedColor: "#959595",
+  warning: "#ed5e68",
 };

@@ -9,7 +9,7 @@ export const DeleteDialoge = styled(motion.div)`
   top: 0;
   bottom: 0;
   border-radius: 10px;
-  background-color: #ed5e68;
+  background-color: ${props => props.theme.warning};
   color: ${(props) => props.theme.headerText};
   display: flex;
   flex-direction: column;

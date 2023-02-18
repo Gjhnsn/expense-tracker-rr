@@ -28,7 +28,6 @@ export const Container = styled.div`
   @media ${uiSize.mobileLandscape} {
     width: 100%;
   }
-
 `;
 
 export const FormContainer = styled.form`
@@ -43,7 +42,6 @@ export const FormHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  
 
   @media ${uiSize.mobileLandscape} {
     flex-direction: column;
@@ -240,7 +238,7 @@ export const Footer = styled.div`
   display: flex;
   justify-content: flex-end;
   margin-top: auto;
-  position:relative;  
+  position: relative;
 `;
 
 export const SubmitButton = styled.div`
@@ -253,7 +251,7 @@ export const SubmitButton = styled.div`
 `;
 
 const onStart = keyframes`
-{
+
   0% {
       opacity: 0;
       transform: translateY(15px);
@@ -261,20 +259,20 @@ const onStart = keyframes`
 100% {
     transform: translateY(0);
     opacity: 1;
-}
+
 }`;
 
 export const ErrorMsg = styled.div`
   font-size: 16px;
   align-self: center;
   margin-right: 10px;
-  color: ${(props) => props.theme.mutedColor};
+  color: ${(props) => props.theme.warning};
   animation: ${onStart} 0.5s 1 ease forwards;
 
   @media ${uiSize.mobileLandscape} {
     position: absolute;
     margin-right: auto;
-      margin-left: auto;
+    margin-left: auto;
   }
 
   p {
@@ -282,11 +280,10 @@ export const ErrorMsg = styled.div`
       font-size: 14px;
       white-space: nowrap;
       margin-bottom: 63px;
-      
     }
 
     @media ${uiSize.smallMobile} {
-      font-size: 10px;      
+      font-size: 10px;
     }
   }
 `;

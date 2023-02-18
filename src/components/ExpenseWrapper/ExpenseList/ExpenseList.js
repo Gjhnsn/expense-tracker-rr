@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useSelector } from "react-redux";
 import {
   ActionIconBar,
   AmountP,
@@ -14,9 +14,10 @@ import {
   NoDateIcon,
   RecurIcon,
   ScrollContainer,
+  EmptyExpenseDiv
 } from "./styles";
 import DeleteModal from "../../DeleteModal/DeleteModal";
-// import ReactTooltip from 'react-tooltip';
+import { Tooltip } from 'react-tooltip'
 
 const ExpenseList = ({
   setIsEdit,
@@ -30,13 +31,10 @@ const ExpenseList = ({
   currentExpense,
   setDeleteModal,
   deleteModal,
-  setExpenseListUpdated,
-  expenseListUpdated
+  setExpenseListUpdated
 }) => {
 
   const expenseData = useSelector((state) => state.expense.allExpenses);
-
- console.log('expense data in list', expenseData)
 
   const date = new Date();
   const currMonth = date.getMonth() + 1;
@@ -62,7 +60,7 @@ const ExpenseList = ({
     .sort((a, b) => (a.dueDate === "n/a" ? -1 : a.dueDate - b.dueDate))
     .map((expense) => {
       return (
-        <li order={expense.amount} key={expense.name}>
+        <li order={expense.amount} key={expense.id}>
           <GridLayout
             currentExpense={currentExpense}
             expense={expense}
@@ -72,12 +70,12 @@ const ExpenseList = ({
               <Name>{expense.name}</Name>
               {expense.recurring === true && (
                 <>
-                  <RecurIcon data-tip="Expense Is Recurring" />
-                  {/* <ReactTooltip
+                  <RecurIcon data-tooltip-id="recur-tooltip" data-tooltip-content="Expense Is Recurring" />
+                  <Tooltip id="recur-tooltip"
                     backgroundColor="rgba(52, 52, 52, .8)"
                     clickable={false}
                     disable={window.innerWidth < "450" && true}
-                  /> */}
+                  />
                 </>
               )}
             </NameWrapper>
@@ -107,58 +105,20 @@ const ExpenseList = ({
       );
     });
 
-  // const expenses = [...data?.getExpenses]
-  //   .sort((a, b) => (a.dueDate === "n/a" ? -1 : a.dueDate - b.dueDate))
-  //   .map((expense) => {
-  //     return (
-  // <li order={expense.amount} key={expense.name}>
-  //   <GridLayout
-  //     currentExpense={currentExpense}
-  //     expense={expense}
-  //     deleteModal={deleteModal}
-  //   >
-  //     <NameWrapper>
-  //       <Name>{expense.name}</Name>
-  //       {expense.recurring === true && <><RecurIcon data-tip="Expense Is Recurring" /><ReactTooltip backgroundColor="rgba(52, 52, 52, .8)" clickable={false} disable={window.innerWidth < "450" && true}/></>}
-  //     </NameWrapper>
-  //     <p>
-  //       {expense.dueDate.length < 1 || expense.dueDate.length > 2 ? (
-  //         <NoDateIcon />
-  //       ) : (
-  //         currMonth + "/" + expense.dueDate
-  //       )}
-  //     </p>
-  //     <AmountP>${Number(expense.amount).toFixed(2)}</AmountP>
-  //     <ActionIconBar>
-  //       <EditIcon onClick={() => onEdit(expense)} />
-  //       <DeleteIcon onClick={() => handleOpenDeleteModal(expense)} />
-  //     </ActionIconBar>
-  //   </GridLayout>
-  //   <DeleteModal
-  //     setOpenExpenseForm={setOpenExpenseForm}
-  //     currentExpense={currentExpense}
-  //     expense={expense}
-  //     deleteModal={deleteModal}
-  //     setDeleteModal={setDeleteModal}
-  //   />
-  // </li>
-  //     );
-  //   });
-
   // ------ convert expense amount to numbers and add total of array
   const totalOfExpenses = () => {
-    // if (data.getExpenses.length > 0) {
-    //   const expenseAmountList = data?.getExpenses.map(
-    //     (expense) => expense.amount
-    //   );
-    //   const convertedAmountList = expenseAmountList?.map((price) =>
-    //     Number(price)
-    //   );
-    //   const expenseTotal = convertedAmountList?.reduce((accumulator, value) => {
-    //     return accumulator + value;
-    //   });
-    //   return expenseTotal.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
-    // }
+    if (expenseData.length) {
+      const expenseAmountList = expenseData.map(
+        (expense) => expense.amount
+      );
+      const convertedAmountList = expenseAmountList?.map((price) =>
+        Number(price)
+      );
+      const expenseTotal = convertedAmountList?.reduce((accumulator, value) => {
+        return accumulator + value;
+      });
+      return expenseTotal.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+    }
   };
 
   return (
@@ -170,15 +130,15 @@ const ExpenseList = ({
           <p>Amount</p>
           {window.innerWidth > "450" ? <p>Action</p> : <p></p>}
         </Header>
-        <ScrollContainer>
-          <ul>{expenses}</ul>
+        <ScrollContainer>{expenses.length ? <ul>{expenses}</ul> : <EmptyExpenseDiv><p>No Expenses</p></EmptyExpenseDiv>}
+          
         </ScrollContainer>
         <Footer>
-          {/* {data?.getExpenses.length > 0 ? (
+          {expenseData.length ? (
             <p>Total: ${totalOfExpenses()}</p>
           ) : (
             <p>$0.00</p>
-          )} */}
+          )}
         </Footer>
       </Container>
     </>

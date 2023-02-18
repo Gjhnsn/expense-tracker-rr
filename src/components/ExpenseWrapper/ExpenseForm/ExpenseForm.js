@@ -40,13 +40,6 @@ const ExpenseForm = ({
   setErrorMessage,
   setDeleteModal
 }) => {
-  // const [addExpense] = useMutation(ADD_EXPENSE, {
-  //   refetchQueries: [{ query: GET_EXPENSES }, "getExpenses"],
-  // });
-
-  // const [updateExpense] = useMutation(UPDATE_EXPENSE, {
-  //   refetchQueries: [{ query: GET_EXPENSES }, "getExpenses"],
-  // });
 
   const dispatch = useDispatch()
 
@@ -109,10 +102,9 @@ const ExpenseForm = ({
     if (validateExpense()) {
       setErrorMessage(false);
       if (isEdit) {
-        console.log('expense edit currEx', currentExpense)
         dispatch(
           editExpense({
-          expenseId: currentExpense.id,
+          id: currentExpense.id,
           name: expenseName,
           dueDate: dateChosen,
           recurring: recurringPayment,
@@ -160,9 +152,7 @@ const ExpenseForm = ({
               )}
               <CloseButton onClick={closeAndClearForm} />
             </FormHeader>
-            {/* 
----------------HERE
-*/}
+
             <label htmlFor="name">Name</label>
             <input
               type="text"
