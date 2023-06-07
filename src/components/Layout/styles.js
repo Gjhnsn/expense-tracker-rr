@@ -15,13 +15,14 @@ export const Wrapper = styled.div`
     }
 
     @media ${uiSize.mobile} {
-    padding: 0 10px;
+        min-height: 0;
+        padding: 0 10px;
 }
 `
 
-export const Content = styled.div`
-    height: calc(100vh - 56px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-`
+// export const Content = styled.div`
+//     height: calc(100vh - 120px);
+//     display: flex;
+//     flex-direction: column;
+//     justify-content: center;
+// `
