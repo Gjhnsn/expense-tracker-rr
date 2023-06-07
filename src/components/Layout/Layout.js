@@ -12,10 +12,8 @@ const Layout = () => {
     <Wrapper>
       {deleteModal && window.innerWidth < "1024" && <Backdrop />}
       <Header />
-      <Content>
         <Month />
         <ExpenseWrapper deleteModal={deleteModal} setDeleteModal={setDeleteModal}/>
-      </Content>
     </Wrapper>
   );
 };
