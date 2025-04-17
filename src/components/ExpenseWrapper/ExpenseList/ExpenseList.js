@@ -88,8 +88,12 @@ const ExpenseList = ({
             </p>
             <AmountP>${Number(expense.amount).toFixed(2)}</AmountP>
             <ActionIconBar>
-              <EditIcon onClick={() => onEdit(expense)} />
-              <DeleteIcon onClick={() => handleOpenDeleteModal(expense)} />
+              <button type="button" onClick={() => onEdit(expense)} aria-label={`Edit ${expense.name}`}>
+                <EditIcon />
+              </button>
+              <button type="button" onClick={() => handleOpenDeleteModal(expense)} aria-label={`Delete ${expense.name}`}>
+                <DeleteIcon />
+              </button>
             </ActionIconBar>
           </GridLayout>
           <DeleteModal

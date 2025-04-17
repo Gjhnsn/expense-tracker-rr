@@ -20,6 +20,7 @@ import {
   ErrorMsg,
   CurrName,
   CloseButton,
+  OpenButton,
 } from "./styles";
 
 const ExpenseForm = ({
@@ -38,10 +39,9 @@ const ExpenseForm = ({
   setExpenseAmount,
   errorMessage,
   setErrorMessage,
-  setDeleteModal
+  setDeleteModal,
 }) => {
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const options = ["n/a"];
 
@@ -91,7 +91,12 @@ const ExpenseForm = ({
   };
 
   const validateExpense = () => {
-    if (expenseName.trim() === "" || expenseAmount === "") {
+    if (
+      expenseName.trim() === "" ||
+      expenseAmount === "" ||
+      isNaN(expenseAmount) ||
+      parseFloat(expenseAmount) <= 0
+    ) {
       setErrorMessage(true);
       return false;
     }
@@ -104,26 +109,27 @@ const ExpenseForm = ({
       if (isEdit) {
         dispatch(
           editExpense({
-          id: currentExpense.id,
-          name: expenseName,
-          dueDate: dateChosen,
-          recurring: recurringPayment,
-          amount: expenseAmount,
-        }))
-     } else {
+            id: currentExpense.id,
+            name: expenseName,
+            dueDate: dateChosen,
+            recurring: recurringPayment,
+            amount: expenseAmount,
+          })
+        );
+      } else {
         dispatch(
           addExpense({
-              name: expenseName,
-              dueDate: dateChosen,
-              recurring: recurringPayment,
-              amount: expenseAmount,
-              id: uuidv4(),
+            name: expenseName,
+            dueDate: dateChosen,
+            recurring: recurringPayment,
+            amount: expenseAmount,
+            id: uuidv4(),
           })
-        )
+        );
       }
       closeAndClearForm();
-    };
-  }
+    }
+  };
 
   const renderErrorMessage = () => {
     return (
@@ -137,7 +143,13 @@ const ExpenseForm = ({
     <>
       <Container openExpenseForm={openExpenseForm}>
         {!openExpenseForm && (
-          <BsPlusSquare style={{cursor: 'pointer'}} onClick={() => [setOpenExpenseForm(true), setDeleteModal(false)]} />
+          <OpenButton
+            onClick={() => [setOpenExpenseForm(true), setDeleteModal(false)]}
+            type="button"
+            aria-label="Open expense form"
+          >
+            <BsPlusSquare style={{ cursor: "pointer" }} aria-hidden="true" />
+          </OpenButton>
         )}
         {openExpenseForm && (
           <FormContainer>
@@ -150,7 +162,13 @@ const ExpenseForm = ({
               ) : (
                 <h3>Add New Expense</h3>
               )}
-              <CloseButton onClick={closeAndClearForm} />
+              <button
+                onClick={closeAndClearForm}
+                type="button"
+                aria-label="close expense form"
+              >
+                <CloseButton aria-hidden="true" />
+              </button>
             </FormHeader>
 
             <label htmlFor="name">Name</label>
@@ -190,26 +208,29 @@ const ExpenseForm = ({
             </AmountWrapper>
             <label>Recurring Payment?</label>
             <RecurBox>
-              <NoOption
-                currentExpense={currentExpense && currentExpense}
-                isEdit={isEdit}
-                recurringPayment={recurringPayment}
-                onClick={() => setRecurringPayment(false)}
-              >
-                <p>No</p>
-              </NoOption>
-              <YesOption
-                currentExpense={currentExpense && currentExpense}
-                isEdit={isEdit}
-                recurringPayment={recurringPayment}
-                onClick={() => setRecurringPayment(true)}
-              >
-                <p>Yes</p>
-              </YesOption>
+              <button type="button" onClick={() => setRecurringPayment(false)}>
+                <NoOption
+                  currentExpense={currentExpense && currentExpense}
+                  isEdit={isEdit}
+                  recurringPayment={recurringPayment}
+                >
+                  <p>No</p>
+                </NoOption>
+              </button>
+              <button type="button" onClick={() => setRecurringPayment(true)}>
+                <YesOption
+                  type="button"
+                  currentExpense={currentExpense && currentExpense}
+                  isEdit={isEdit}
+                  recurringPayment={recurringPayment}
+                >
+                  <p>Yes</p>
+                </YesOption>
+              </button>
             </RecurBox>
             <Footer>
               {errorMessage && renderErrorMessage()}
-              <SubmitButton onClick={onSubmit}>
+              <SubmitButton onClick={onSubmit} type="button">
                 <p>Submit</p>
               </SubmitButton>
             </Footer>

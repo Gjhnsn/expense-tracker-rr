@@ -6,7 +6,7 @@ const Header = () => {
   return (
       <Nav>
         <h1>MoneyMinder</h1>
-        <a href="https://github.com/Gjhnsn" target="_blank" aria-label="View GitHub profile">
+        <a href="https://github.com/Gjhnsn" target="_blank" rel="noreferrer" aria-label="View GitHub profile">
           <BsGithub />
         </a>
       </Nav>
