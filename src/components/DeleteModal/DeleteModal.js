@@ -71,16 +71,14 @@ const DeleteModal = ({ currentExpense, deleteModal, setDeleteModal }) => {
             exit={'exit'}
             transition={{ delay: 0.2, stiffness: 250 }}
           >
-            <p>Delete Expense?</p>
+            <p aria-label="Are you sure you would like to delete this expense?">Delete Expense?</p>
             <div>
-              <AiOutlineCloseCircle
-                onClick={() => setDeleteModal((prev) => !prev)}
-                style={{ cursor: "pointer" }}
-              />
-              <AiOutlineCheckCircle
-                onClick={() => handleDelete()}
-                style={{ cursor: "pointer" }}
-              />
+              <button type="button" onClick={() => setDeleteModal((prev) => !prev)} aria-label="cancel delete expense">
+                <AiOutlineCloseCircle />
+              </button>
+              <button type="button" onClick={() => handleDelete()} aria-label="confirm delete expense">
+                <AiOutlineCheckCircle />
+              </button>
             </div>
           </ConfirmBar>
         </DeleteDialoge>

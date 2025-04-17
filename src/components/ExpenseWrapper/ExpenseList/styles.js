@@ -152,23 +152,30 @@ export const ActionIconBar = styled.div`
   margin-left: auto;
   width: 100%;
   display: flex;
+  gap: 20px;
   justify-content: flex-end;
+
+  button {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
 
   @media ${uiSize.tablet} {
     margin-right: 0;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
+    gap: 10px;
   }
 `;
 
 export const DeleteIcon = styled(AiOutlineDelete)`
   cursor: pointer;
-  margin-left: 20px;
 
   @media ${uiSize.tablet} {
     margin-left: 0;
-    margin-top: 10px;
   }
 
   &:hover {

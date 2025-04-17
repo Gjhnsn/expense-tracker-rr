@@ -30,6 +30,13 @@ export const Container = styled.div`
   }
 `;
 
+export const OpenButton = styled.button`
+  all: unset;
+  cursor: pointer;
+  padding: 5px;
+  display: flex;
+`;
+
 export const FormContainer = styled.form`
   width: 100%;
   height: 100%;
@@ -42,6 +49,13 @@ export const FormHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  button {
+    all: unset;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+  }
 
   @media ${uiSize.mobileLandscape} {
     flex-direction: column;
@@ -195,9 +209,13 @@ export const RecurBox = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
   margin-bottom: 30px;
+
+  button {
+    all: unset;
+  }
 `;
 
-export const YesOption = styled.div`
+export const YesOption = styled.span`
   box-shadow: 0px 0px 0px 3px inset ${(props) => props.theme.body};
   border-radius: 5px;
   display: flex;
@@ -215,7 +233,7 @@ export const YesOption = styled.div`
   cursor: pointer;
 `;
 
-export const NoOption = styled.div`
+export const NoOption = styled.span`
   box-shadow: 0px 0px 0px 3px inset ${(props) => props.theme.body};
   border-radius: 5px;
   display: flex;
@@ -241,7 +259,8 @@ export const Footer = styled.div`
   position: relative;
 `;
 
-export const SubmitButton = styled.div`
+export const SubmitButton = styled.button`
+  all: unset;
   background-color: ${(props) => props.theme.body};
   padding: 5px 30px;
   border-radius: 5px;
