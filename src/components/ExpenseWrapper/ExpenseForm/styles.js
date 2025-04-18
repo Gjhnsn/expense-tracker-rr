@@ -8,7 +8,7 @@ import { uiSize } from "../../../utils/mobileScreens";
 export const Container = styled.div`
   background-color: ${(props) => props.theme.secondaryColor};
   border-radius: 10px;
-  padding: ${(props) => (props.openExpenseForm ? "25px" : "10px 25px")};
+  padding: ${(props) => (props.openExpenseForm ? "20px" : "20px")};
   width: 48%;
   color: white;
   font-size: 30px;
@@ -21,19 +21,25 @@ export const Container = styled.div`
   transition: all 0.2s ease-in;
 
   @media ${uiSize.tablet} {
+    height: ${(props) => props.openExpenseForm && "530px"};
     margin-bottom: 20px;
     width: 650px;
+    order: 1;
   }
 
   @media ${uiSize.mobileLandscape} {
     width: 100%;
+  }
+
+  @media ${uiSize.smallMobile} {
+    height: ${(props) => props.openExpenseForm && "540px"};
+
   }
 `;
 
 export const OpenButton = styled.button`
   all: unset;
   cursor: pointer;
-  padding: 5px;
   display: flex;
 `;
 
@@ -43,6 +49,7 @@ export const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
+  padding: 5px;
 `;
 
 export const FormHeader = styled.div`
@@ -53,13 +60,7 @@ export const FormHeader = styled.div`
   button {
     all: unset;
     cursor: pointer;
-    padding: 5px;
     display: flex;
-  }
-
-  @media ${uiSize.mobileLandscape} {
-    flex-direction: column;
-    align-items: flex-start;
   }
 
   h3 {
@@ -85,12 +86,6 @@ export const FormHeader = styled.div`
 
 export const CloseButton = styled(BsXSquare)`
   cursor: pointer;
-
-  @media ${uiSize.mobileLandscape} {
-    position: absolute;
-    align-self: flex-end;
-    order: -1;
-  }
 `;
 
 export const CurrName = styled.p`
@@ -114,19 +109,21 @@ export const DueDate = styled.div.attrs({
 
 export const customSelectStyles = {
   option: (provided, state) => ({
-    backgroundColor: `#343434`,
+    backgroundColor: state.isFocused ? `#262626` : `#343434`,
     borderBottom: "1px solid #959595",
     color: `#D9D9D9`,
     padding: 10,
     fontSize: `12px`,
     "&:hover": {
       backgroundColor: `#262626`,
+      cursor: "pointer",
     },
   }),
-  dropdownIndicator: (provided) => ({
+  dropdownIndicator: (provided, state) => ({
     ...provided,
+    color: state.isFocused && `${(props) => props.theme.focusColor}`,
     "&:hover": {
-      color: `#252525`,
+      color: `rgb(120, 146, 225)`,
       cursor: "pointer",
     },
   }),
@@ -146,8 +143,7 @@ export const customSelectStyles = {
     width: "100%",
     paddingLeft: "9px",
   }),
-
-  control: () => ({
+  control: (provided, state) => ({
     width: "100%",
     height: "33px",
     display: "flex",
@@ -155,6 +151,8 @@ export const customSelectStyles = {
     backgroundColor: `#343434`,
     borderRadius: "5px",
     fontSize: `14px`,
+    outline: state.isFocused && `1px solid rgb(120, 146, 225)`,
+    outlineOffset: state.isFocused ? "3px" : "0px",
   }),
   singleValue: (_, state) => {
     const opacity = state.isDisabled ? 0.5 : 1;
