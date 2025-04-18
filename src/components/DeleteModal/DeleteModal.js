@@ -74,10 +74,10 @@ const DeleteModal = ({ currentExpense, deleteModal, setDeleteModal }) => {
             <p aria-label="Are you sure you would like to delete this expense?">Delete Expense?</p>
             <div>
               <button type="button" onClick={() => setDeleteModal((prev) => !prev)} aria-label="cancel delete expense">
-                <AiOutlineCloseCircle />
+                <AiOutlineCloseCircle style={{height: "45px", width: "45px"}} />
               </button>
               <button type="button" onClick={() => handleDelete()} aria-label="confirm delete expense">
-                <AiOutlineCheckCircle />
+                <AiOutlineCheckCircle style={{height: "45px", width: "45px"}} />
               </button>
             </div>
           </ConfirmBar>

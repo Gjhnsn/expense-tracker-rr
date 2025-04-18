@@ -157,8 +157,6 @@ export const ActionIconBar = styled.div`
   justify-content: flex-end;
 
   button {
-    all: unset;
-    cursor: pointer;
     display: flex;
     align-items: center;
   }
@@ -174,6 +172,8 @@ export const ActionIconBar = styled.div`
 
 export const DeleteIcon = styled(AiOutlineDelete)`
   cursor: pointer;
+  height: 16px;
+  width: 16px;
 
   @media ${uiSize.tablet} {
     margin-left: 0;
@@ -187,6 +187,9 @@ export const DeleteIcon = styled(AiOutlineDelete)`
 
 export const EditIcon = styled(AiOutlineEdit)`
   cursor: pointer;
+  height: 16px;
+  width: 16px;
+
   &:hover {
     color: ${(props) => props.theme.mutedColor};
     transition: color 0.2s ease;

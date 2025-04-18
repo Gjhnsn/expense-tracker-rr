@@ -148,7 +148,7 @@ const ExpenseForm = ({
             type="button"
             aria-label="Open expense form"
           >
-            <BsPlusSquare style={{ cursor: "pointer" }} aria-hidden="true" />
+            <BsPlusSquare style={{height: "30px", width: "30px"}} aria-hidden="true" />
           </OpenButton>
         )}
         {openExpenseForm && (
@@ -167,7 +167,7 @@ const ExpenseForm = ({
                 type="button"
                 aria-label="close expense form"
               >
-                <CloseButton aria-hidden="true" />
+                <CloseButton style={{height: "30px", width: "30px"}} aria-hidden="true" />
               </button>
             </FormHeader>
 

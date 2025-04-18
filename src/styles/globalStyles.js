@@ -59,6 +59,16 @@ export const GlobalStyles = createGlobalStyle`
         outline-offset: 3px;
     }
 
+    button {
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    color: inherit;
+    cursor: pointer;
+  }
+
+
     button:focus {
         border-radius: 4px;
         outline: 1px solid ${(props) => props.theme.focusColor};
