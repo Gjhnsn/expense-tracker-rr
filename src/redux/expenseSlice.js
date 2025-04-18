@@ -12,15 +12,14 @@ const expenseSlice = createSlice({
       state.allExpenses.push(action.payload);
     },
     editExpense(state, action) {
-      state.allExpenses.map((expense) => {
+      state.allExpenses.forEach((expense) => {
         if (expense.id === action.payload.id) {
-          return (
-          expense.name = action.payload.name,
-          expense.dueDate = action.payload.dueDate,
-          expense.amount = action.payload.amount,
-          expense.recurring = action.payload.recurring,
-          expense.id = action.payload.id
-      )}
+          expense.name = action.payload.name;
+          expense.dueDate = action.payload.dueDate;
+          expense.amount = action.payload.amount;
+          expense.recurring = action.payload.recurring;
+          expense.id = action.payload.id;
+        }
       });
     },
     deleteExpense(state, action) {

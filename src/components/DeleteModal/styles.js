@@ -9,8 +9,8 @@ export const DeleteDialoge = styled(motion.div)`
   top: 0;
   bottom: 0;
   border-radius: 10px;
-  background-color: ${props => props.theme.warning};
-  color: ${(props) => props.theme.headerText};
+  background-color: ${(props) => props.theme.warning};
+  color: ${(props) => props.theme.warningText};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +22,7 @@ export const DeleteDialoge = styled(motion.div)`
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-   }
+  }
 
   @media ${uiSize.tablet} {
     width: 100vw;
@@ -38,6 +38,18 @@ export const ConfirmBar = styled(motion.div)`
   width: 100%;
   font-size: 45px;
 
+  button {
+    all: unset;
+    cursor: pointer;
+    display: flex;
+    border-radius: 50%;
+  }
+  
+  button:hover {
+    background: rgb(255, 132, 132);
+    transition: all 0.2s ease-in;
+  }
+
   p {
     font-size: 16px;
     margin-bottom: 15px;
@@ -50,7 +62,7 @@ export const ConfirmBar = styled(motion.div)`
 `;
 
 export const Backdrop = styled.div`
-  background-color: #322A31;
+  background-color: #322a31;
   position: fixed;
   opacity: 0.6;
   height: 100%;

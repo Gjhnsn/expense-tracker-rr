@@ -53,12 +53,33 @@ export const GlobalStyles = createGlobalStyle`
         color: ${(props) => props.theme.headerText};
     }
 
+    a:focus {
+        border-radius: 4px;
+        outline: 1px solid ${(props) => props.theme.focusColor};
+        outline-offset: 3px;
+    }
+
+    button:focus {
+        border-radius: 4px;
+        outline: 1px solid ${(props) => props.theme.focusColor};
+        outline-offset: 3px;
+    }
+
+    input:focus {
+        border-radius: 4px;
+        outline: 1px solid ${(props) => props.theme.focusColor};
+        outline-offset: 3px;
+    }
+
 `;
 
 export const theme = {
   body: "#343434",
   headerText: "#D9D9D9",
   secondaryColor: "#434343",
-  mutedColor: "#959595",
+  mutedColor: "#BFBFBF",
   warning: "#ed5e68",
+  warningOpacity: "rgba(237, 94, 104, 0.2)",
+  warningText: "#4c1600",
+  focusColor: "rgb(120, 146, 225)",
 };
