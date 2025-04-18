@@ -39,12 +39,17 @@ export const ConfirmBar = styled(motion.div)`
   font-size: 45px;
 
   button {
-    all: unset;
-    cursor: pointer;
+
     display: flex;
     border-radius: 50%;
   }
-  
+
+  button:focus {
+    border-radius: 4px;
+    outline: 3px solid ${(props) => props.theme.headerText};
+    outline-offset: 3px;
+  }
+
   button:hover {
     background: rgb(255, 132, 132);
     transition: all 0.2s ease-in;

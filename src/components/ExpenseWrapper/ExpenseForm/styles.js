@@ -38,7 +38,6 @@ export const Container = styled.div`
 `;
 
 export const OpenButton = styled.button`
-  all: unset;
   cursor: pointer;
   display: flex;
 `;
@@ -58,7 +57,6 @@ export const FormHeader = styled.div`
   justify-content: space-between;
 
   button {
-    all: unset;
     cursor: pointer;
     display: flex;
   }
@@ -207,10 +205,6 @@ export const RecurBox = styled.div`
   grid-template-columns: 1fr 1fr;
   grid-gap: 10px;
   margin-bottom: 30px;
-
-  button {
-    all: unset;
-  }
 `;
 
 export const YesOption = styled.span`
@@ -258,7 +252,6 @@ export const Footer = styled.div`
 `;
 
 export const SubmitButton = styled.button`
-  all: unset;
   background-color: ${(props) => props.theme.body};
   padding: 5px 30px;
   border-radius: 5px;
