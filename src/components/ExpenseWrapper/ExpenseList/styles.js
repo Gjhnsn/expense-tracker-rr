@@ -17,12 +17,12 @@ export const Container = styled.div`
   @media ${uiSize.tablet} {
     width: 650px;
     min-height: none;
+    order: 2;
   }
 
   @media ${uiSize.mobileLandscape} {
     width: 100%;
   }
-
 `;
 
 export const ScrollContainer = styled.div`
@@ -38,20 +38,20 @@ export const ScrollContainer = styled.div`
 
 export const EmptyExpenseDiv = styled.div`
   height: 100%;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-    p { 
-      font-size: 36px;
-      color: ${props => props.theme.mutedColor};
+  p {
+    font-size: 36px;
+    color: ${(props) => props.theme.mutedColor};
 
-      @media ${uiSize.tablet} {
-        padding: 25px 0;
-      }
+    @media ${uiSize.tablet} {
+      padding: 25px 0;
     }
-`
+  }
+`;
 
 export const Header = styled.div`
   width: 100%;
@@ -73,10 +73,12 @@ export const Header = styled.div`
 `;
 
 export const GridLayout = styled.div`
-  color: ${(props) =>
-    props.currentExpense === props.expense && props.deleteModal
-      ? props.theme.warning
-      : props.theme.headerText};
+  background-color: ${(props) =>
+    props.currentExpense === props.expense &&
+    props.deleteModal &&
+    props.theme.warningOpacity};
+  color: ${(props) => props.theme.headerText};
+  border-radius: 4px;
   width: 100%;
   margin: 0;
   padding: 10px 10px 15px;
@@ -90,7 +92,6 @@ export const GridLayout = styled.div`
     grid-template-columns: 1.5fr 1fr 1fr 0.5fr;
     font-size: 16px;
   }
-
 `;
 
 export const NameWrapper = styled.div`
@@ -179,7 +180,7 @@ export const DeleteIcon = styled(AiOutlineDelete)`
   }
 
   &:hover {
-    color: ${props => props.theme.warning};
+    color: ${(props) => props.theme.warning};
     transition: color 0.2s ease;
   }
 `;
@@ -190,7 +191,7 @@ export const EditIcon = styled(AiOutlineEdit)`
     color: ${(props) => props.theme.mutedColor};
     transition: color 0.2s ease;
   }
-`
+`;
 
 export const Footer = styled.div`
   width: 100%;
